@@ -1,4 +1,4 @@
 import bodyMiddleware from "./body.middleware";
 import handleError from "./handle.error";
-
-export { bodyMiddleware, handleError };
+import userMiddlewares from "./user.middlewares";
+export { bodyMiddleware, handleError, userMiddlewares };
