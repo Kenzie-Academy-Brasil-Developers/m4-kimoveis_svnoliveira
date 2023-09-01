@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { bodyMiddleware, userMiddlewares } from "../middlewares";
+import { bodyMiddleware, tokenMiddlewares, userMiddlewares } from "../middlewares";
 import { userCreateSchema, userUpdateSchema } from "../schemas";
-import userControllers from "../controllers/user.controllers";
+import { userControllers } from "../controllers";
 
 const userRouter: Router = Router();
 
@@ -12,23 +12,23 @@ userControllers.create
 );
 
 userRouter.get("",
-//token is valid
-//token is admin
+tokenMiddlewares.validate,
+tokenMiddlewares.isAuthorized,
 userControllers.read
 );
 
 userRouter.patch("/:id",
 bodyMiddleware.validate(userUpdateSchema),
-//token is valid
-//token is admin
 userMiddlewares.idExists,
+tokenMiddlewares.validate,
+tokenMiddlewares.isAuthorized,
 userControllers.update
 );
 
 userRouter.delete("/:id",
-//token is valid
-//token is admin
 userMiddlewares.idExists,
+tokenMiddlewares.validate,
+tokenMiddlewares.isAuthorized,
 userControllers.destroy
 );
 

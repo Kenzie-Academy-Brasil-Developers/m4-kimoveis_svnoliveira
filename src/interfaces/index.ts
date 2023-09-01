@@ -3,6 +3,7 @@ import { CategoryCreate, CategoryRead, CategoryUpdate, CategoryRepo } from "./ca
 import { RealEstateCreate, RealEstateRead, RealEstateUpdate, RealEstateRepo } from "./realEstate.interfaces";
 import { ScheduleCreate, ScheduleRead, ScheduleUpdate, ScheduleRepo } from "./schedule.interfaces";
 import { UserCreate, UserList, UserUpdate, UserRepo, UserReturn } from "./user.interfaces";
+import { Token, Login } from "./session.interfaces";
 
 export { 
     AddressCreate,
@@ -25,5 +26,7 @@ export {
     UserList,
     UserUpdate,
     UserRepo,
-    UserReturn
+    UserReturn,
+    Token,
+    Login
 };

@@ -1,1 +1,6 @@
 res.locals.user
+res.locals.tokenData {
+    email
+    id
+    admin
+}
