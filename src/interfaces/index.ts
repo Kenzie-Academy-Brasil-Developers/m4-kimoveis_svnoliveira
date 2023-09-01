@@ -2,7 +2,7 @@ import { AddressCreate, AddressRead, AddressUpdate, AddressRepo } from "./addres
 import { CategoryCreate, CategoryRead, CategoryUpdate, CategoryRepo } from "./category.interfaces";
 import { RealEstateCreate, RealEstateRead, RealEstateUpdate, RealEstateRepo } from "./realEstate.interfaces";
 import { ScheduleCreate, ScheduleRead, ScheduleUpdate, ScheduleRepo } from "./schedule.interfaces";
-import { UserCreate, UserRead, UserUpdate, UserRepo, UserReturn } from "./user.interfaces";
+import { UserCreate, UserList, UserUpdate, UserRepo, UserReturn } from "./user.interfaces";
 
 export { 
     AddressCreate,
@@ -22,7 +22,7 @@ export {
     ScheduleUpdate,
     ScheduleRepo,
     UserCreate,
-    UserRead,
+    UserList,
     UserUpdate,
     UserRepo,
     UserReturn
