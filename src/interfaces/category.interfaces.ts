@@ -4,8 +4,7 @@ import { categoryCreateSchema } from "../schemas";
 import { Category } from "../entities";
 
 type CategoryCreate = z.infer<typeof categoryCreateSchema>;
-type CategoryRead = Category[];
-type CategoryUpdate = DeepPartial<Category>;
+type CategoryList = Category[];
 type CategoryRepo = Repository<Category>;
 
-export { CategoryCreate, CategoryRead, CategoryUpdate, CategoryRepo };
+export { CategoryCreate, CategoryList, CategoryRepo };

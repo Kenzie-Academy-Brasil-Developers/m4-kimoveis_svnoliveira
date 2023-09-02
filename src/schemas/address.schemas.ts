@@ -10,6 +10,5 @@ const addressSchema = z.object({
 });
 
 const addressCreateSchema = addressSchema.omit({ id: true });
-const addressUpdateSchema = addressCreateSchema.partial();
 
-export { addressSchema, addressCreateSchema, addressUpdateSchema };
+export { addressSchema, addressCreateSchema };
