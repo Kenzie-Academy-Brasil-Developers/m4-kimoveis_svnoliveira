@@ -1,7 +1,7 @@
 import "express-async-errors"
 import { NextFunction, Response, Request } from "express";
 import { AppError } from "../errors";
-import { addressRepository } from "../repositories";
+import { addressRepository, realEstateRepository } from "../repositories";
 import { AddressCreate } from "../interfaces";
 
 const addressExists = async (
@@ -26,4 +26,24 @@ const addressExists = async (
     };
 };
 
-export default { addressExists };
+const idExists = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response | void> => {
+    const idTarget = Number(req.body.realEstateId) | Number(req.params.id);
+
+    const realEstate = await realEstateRepository.findOne({
+        where: {
+            id: idTarget
+        }
+    });
+    
+    if (realEstate) {
+        return next();
+    } else {
+        throw new AppError("Real Estate not found", 404);
+    };
+};
+
+export default { addressExists, idExists };

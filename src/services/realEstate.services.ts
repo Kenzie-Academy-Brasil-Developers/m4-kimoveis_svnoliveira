@@ -15,7 +15,6 @@ const create = async (payload: RealEstateCreate): Promise<RealEstateWithAddress>
         },
         address
     });
-
     await realEstateRepository.save(realEstate);
 
     const result: RealEstateWithAddress = realEstateSchema.parse({

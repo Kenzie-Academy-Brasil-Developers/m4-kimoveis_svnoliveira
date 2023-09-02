@@ -4,6 +4,7 @@ import userMiddlewares from "./user.middlewares";
 import tokenMiddlewares from "./token.middlewares";
 import categoryMiddlewares from "./category.middlewares";
 import realEstateMiddlewares from "./realEstate.middlewares";
+import scheduleMiddlewares from "./schedule.middlewares";
 
 
 export { 
@@ -12,5 +13,6 @@ export {
     userMiddlewares, 
     tokenMiddlewares, 
     categoryMiddlewares,
-    realEstateMiddlewares
+    realEstateMiddlewares,
+    scheduleMiddlewares
 };

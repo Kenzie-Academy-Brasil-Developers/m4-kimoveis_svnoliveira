@@ -1,7 +1,7 @@
 import { AddressCreate, AddressRepo } from "./address.interfaces";
 import { CategoryCreate, CategoryList, CategoryRepo } from "./category.interfaces";
 import { RealEstateWithAddress, RealEstateCreate, RealEstateList, RealEstateRepo } from "./realEstate.interfaces";
-import { ScheduleCreate, ScheduleRead, ScheduleUpdate, ScheduleRepo } from "./schedule.interfaces";
+import { ScheduleReturn, ScheduleCreate, ScheduleList, ScheduleRepo } from "./schedule.interfaces";
 import { UserCreate, UserList, UserUpdate, UserRepo, UserReturn } from "./user.interfaces";
 import { Token, Login } from "./session.interfaces";
 
@@ -15,9 +15,9 @@ export {
     RealEstateCreate,
     RealEstateList,
     RealEstateRepo,
+    ScheduleReturn,
     ScheduleCreate,
-    ScheduleRead,
-    ScheduleUpdate,
+    ScheduleList,
     ScheduleRepo,
     UserCreate,
     UserList,

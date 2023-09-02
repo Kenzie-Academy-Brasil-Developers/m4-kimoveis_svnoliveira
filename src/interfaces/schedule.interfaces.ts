@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { DeepPartial, Repository } from "typeorm";
-import { scheduleCreateSchema } from "../schemas";
+import { Repository } from "typeorm";
+import { scheduleCreateSchema, scheduleSchema } from "../schemas";
 import { Schedule } from "../entities";
 
+type ScheduleReturn = z.infer<typeof scheduleSchema>;
 type ScheduleCreate = z.infer<typeof scheduleCreateSchema>;
-type ScheduleRead = Schedule[];
-type ScheduleUpdate = DeepPartial<Schedule>;
+type ScheduleList = ScheduleReturn[];
 type ScheduleRepo = Repository<Schedule>;
 
-export { ScheduleCreate, ScheduleRead, ScheduleUpdate, ScheduleRepo };
+export { ScheduleReturn, ScheduleCreate, ScheduleList, ScheduleRepo };
