@@ -1,7 +1,6 @@
-import { Category, RealEstate } from "../entities";
-import { CategoryCreate, CategoryList, RealEstateList } from "../interfaces";
+import { Category } from "../entities";
+import { CategoryCreate, CategoryList, CategoryRealEstates, RealEstateList } from "../interfaces";
 import { categoryRepository, realEstateRepository } from "../repositories";
-import { realEstateSchema } from "../schemas";
 
 const create = async (payload: CategoryCreate): Promise<Category> => {
     const category: Category = categoryRepository.create(payload);
@@ -14,26 +13,20 @@ const read = async (): Promise<CategoryList> => {
     return categoryList;
 };
 
-const readRealEstates = async (categoryId: number): Promise<RealEstateList> => {
-    const realEstates: RealEstate[] = await realEstateRepository.find({
+const readRealEstates = async (category: Category): Promise<CategoryRealEstates> => {
+    const realEstateList: RealEstateList = await realEstateRepository.find({
         where: {
             category: { 
-                id: categoryId
+                id: category.id
             }
-        },
-        relations: {
-            address: true
         }
     });
 
-    const realEstateList: RealEstateList = realEstates.map((realEstate)=> {
-        return realEstateSchema.parse({
-            ...realEstate,
-            categoryId: categoryId,
-        });
-    });
-
-    return realEstateList;
+    return {
+        id: category.id,
+        name: category.name,
+        realEstate: realEstateList
+    };
 };
 
 export default { create, read, readRealEstates };

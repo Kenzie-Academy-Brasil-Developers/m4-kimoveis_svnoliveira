@@ -1,10 +1,16 @@
 import { z } from "zod";
-import { DeepPartial, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { categoryCreateSchema } from "../schemas";
 import { Category } from "../entities";
+import { RealEstateList } from "./realEstate.interfaces";
 
 type CategoryCreate = z.infer<typeof categoryCreateSchema>;
 type CategoryList = Category[];
 type CategoryRepo = Repository<Category>;
+type CategoryRealEstates = {
+    id: number,
+    name: string,
+    realEstate: RealEstateList
+};
 
-export { CategoryCreate, CategoryList, CategoryRepo };
+export { CategoryCreate, CategoryList, CategoryRepo, CategoryRealEstates };

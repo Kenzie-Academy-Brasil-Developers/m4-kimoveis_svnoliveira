@@ -13,12 +13,12 @@ const login = async (payload: Login): Promise<Token> => {
     });
 
     if (!user) {
-        throw new AppError("Wrong email/password", 401);
+        throw new AppError("Invalid credentials", 401);
     };
 
     const passwordIsValid: boolean = compareSync(password, user.password);
     if (!passwordIsValid) {
-        throw new AppError("Wrong email/password", 401);
+        throw new AppError("Invalid credentials", 401);
     };
 
     const token = sign({

@@ -23,7 +23,7 @@ const nameExists = async (
     if (!foundName) {
         return next();
     } else {
-        throw new AppError("Category already exists.", 409);
+        throw new AppError("Category already exists", 409);
     };
 };
 
@@ -41,6 +41,7 @@ const idExists = async (
     });
     
     if (category) {
+        res.locals.category = category;
         return next();
     } else {
         throw new AppError("Category not found", 404);

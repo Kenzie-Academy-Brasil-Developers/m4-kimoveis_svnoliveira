@@ -22,7 +22,7 @@ const addressExists = async (
     if (!foundAddress) {
         return next();
     } else {
-        throw new AppError("Address already exists.", 409);
+        throw new AppError("Address already exists", 409);
     };
 };
 
@@ -36,13 +36,18 @@ const idExists = async (
     const realEstate = await realEstateRepository.findOne({
         where: {
             id: idTarget
+        },
+        relations: {
+            address: true,
+            category: true
         }
     });
     
     if (realEstate) {
+        res.locals.realEstate = realEstate;
         return next();
     } else {
-        throw new AppError("Real Estate not found", 404);
+        throw new AppError("RealEstate not found", 404);
     };
 };
 

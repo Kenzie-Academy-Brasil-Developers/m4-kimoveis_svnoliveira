@@ -9,22 +9,22 @@ const validate = async (
   next: NextFunction
 ): Promise<void> => {
   
-  const date: string = req.body.date;
+  const date: string = req.body.date.replace(/\//g,"-");
   const hour: string = req.body.hour;
   const tentativeSchedule: Date = new Date(`${date}T${hour}:00`);
+
   if (String(tentativeSchedule) === "Invalid Date") {
     throw new AppError("Invalid Date", 409);
   };
 
   const weekday: number = tentativeSchedule.getDay();
   const tentativeHour: number = tentativeSchedule.getHours();
-  console.log(weekday);
   if (weekday === 0 || weekday === 6) {
-    throw new AppError("Date cannot be on a Saturday or Sunday", 409);
+    throw new AppError("Invalid date, work days are monday to friday", 400);
   };
 
   if (tentativeHour < 8 || tentativeHour > 17) {
-    throw new AppError("The hour must be between 08:00 and 18:00", 409);
+    throw new AppError("Invalid hour, available times are 8AM to 18PM", 400);
   };
 
   const isUserScheduled = await scheduleRepository.findOne({
@@ -32,27 +32,27 @@ const validate = async (
       user: {
         id: res.locals.tokenData.id
       },
-      date,
+      date: date.replace(/\-/g,"/"),
       hour
     }
   });
+
+  if (isUserScheduled) {
+    throw new AppError("User schedule to this real estate at this date and time already exists", 409);
+  };
 
   const isRealEstateScheduled = await scheduleRepository.findOne({
     where: {
       realEstate: {
         id: req.body.realEstateId
       },
-      date,
+      date: date.replace(/\-/g,"/"),
       hour
     }
   });
 
-  if (isUserScheduled) {
-    throw new AppError("The user is already scheduled for this date and hour", 409);
-  };
-
   if (isRealEstateScheduled) {
-    throw new AppError("The real estate is already scheduled for this date and hour", 409);
+    throw new AppError("Schedule to this real estate at this date and time already exists", 409);
   };
 
   return next();

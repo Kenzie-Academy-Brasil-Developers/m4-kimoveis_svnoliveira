@@ -6,12 +6,16 @@ import { realEstateControllers } from "../controllers";
 const realEstateRouter: Router = Router();
 
 realEstateRouter.post("",
-bodyMiddleware.validate(realEstateCreateSchema),
 tokenMiddlewares.validate,
 tokenMiddlewares.isAuthorized,
+bodyMiddleware.validate(realEstateCreateSchema),
 realEstateMiddlewares.addressExists,
 categoryMiddlewares.idExists,
 realEstateControllers.create
+);
+
+realEstateRouter.get("",
+realEstateControllers.read
 );
 
 export { realEstateRouter };

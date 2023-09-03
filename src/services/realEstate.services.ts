@@ -1,31 +1,34 @@
-import { Address, RealEstate } from "../entities";
-import { RealEstateCreate, RealEstateWithAddress } from "../interfaces";
+import { Address, Category, RealEstate } from "../entities";
+import { RealEstateCreate, RealEstateList } from "../interfaces";
 import { addressRepository, realEstateRepository } from "../repositories";
 import { realEstateSchema } from "../schemas";
 
-const create = async (payload: RealEstateCreate): Promise<RealEstateWithAddress> => {
+const create = async (payload: RealEstateCreate, category: Category): Promise<RealEstate> => {
     const address: Address = addressRepository.create(payload.address);
     await addressRepository.save(address);
-
+    
     const realEstate: RealEstate = realEstateRepository.create({
         size: payload.size,
         value: payload.value,
-        category: {
-            id: payload.categoryId
-        },
+        category,
         address
     });
     await realEstateRepository.save(realEstate);
 
-    const result: RealEstateWithAddress = realEstateSchema.parse({
-        ...realEstate,
-        categoryId: realEstate.category.id, 
-        address: {
-            ...address
-        }
-    });
+    
+    const result: RealEstate = realEstateSchema.parse(realEstate);
 
     return result;
 };
 
-export default { create };
+const read = async (): Promise<RealEstateList> => {
+    const realEstateList: RealEstateList = await realEstateRepository.find({
+        relations: {
+            address: true
+        }
+    });
+    
+    return realEstateList
+};
+
+export default { create, read };

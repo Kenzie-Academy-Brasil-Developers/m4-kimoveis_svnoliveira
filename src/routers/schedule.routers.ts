@@ -6,14 +6,16 @@ import { scheduleControllers } from "../controllers";
 const scheduleRouter: Router = Router();
 
 scheduleRouter.post("",
-bodyMiddleware.validate(scheduleCreateSchema),
 tokenMiddlewares.validate,
+bodyMiddleware.validate(scheduleCreateSchema),
 realEstateMiddlewares.idExists,
 scheduleMiddlewares.validate,
 scheduleControllers.create
 );
 
 scheduleRouter.get("/realEstate/:id",
+tokenMiddlewares.validate,
+tokenMiddlewares.isAuthorized,
 realEstateMiddlewares.idExists,
 scheduleControllers.read
 );

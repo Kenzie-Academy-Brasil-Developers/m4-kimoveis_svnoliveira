@@ -25,7 +25,7 @@ const validate = (
             }
             res.locals.tokenData = {
                 email: decoded.email,
-                id: decoded.id,
+                id: decoded.id | Number(decoded.sub),
                 admin: decoded.admin
             };
         }
@@ -40,16 +40,19 @@ const isAuthorized = (
     next: NextFunction
 ): void => {
 
-    const adminStatus: boolean = res.locals.tokenData.admin;
+    const adminStatus: boolean | undefined = res.locals.tokenData.admin;
+    const tokenId: number = res.locals.tokenData.id;
+    const userId: number | null = res.locals.user? res.locals.user.id : null;
 
     if(!adminStatus){
-        if(
-            req.body && res.locals.user && 
-            res.locals.tokenData.id === res.locals.user.id){ 
-            return next(); 
-        };
+        if(req.body){
+            if(tokenId === userId){
+                return next();
+            }
+            throw new AppError("Insufficient permission", 403);
+        }  
         throw new AppError("Insufficient permission", 403);
-    }
+    };
     return next();
 };
 

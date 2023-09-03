@@ -6,9 +6,9 @@ import { categoryControllers } from "../controllers";
 const categoryRouter: Router = Router();
 
 categoryRouter.post("",
-bodyMiddleware.validate(categoryCreateSchema),
 tokenMiddlewares.validate,
 tokenMiddlewares.isAuthorized,
+bodyMiddleware.validate(categoryCreateSchema),
 categoryMiddlewares.nameExists,
 categoryControllers.create
 );

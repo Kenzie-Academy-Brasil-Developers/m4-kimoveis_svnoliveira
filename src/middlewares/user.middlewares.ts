@@ -23,7 +23,7 @@ const emailExists = async (
     if (!foundEmail) {
         return next();
     } else {
-        throw new AppError("Email already exists.", 409);
+        throw new AppError("Email already exists", 409);
     };
 };
 

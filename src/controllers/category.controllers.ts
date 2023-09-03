@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Category } from "../entities";
 import { categoryServices } from "../services";
-import { CategoryList, RealEstateList } from "../interfaces";
+import { CategoryList, CategoryRealEstates } from "../interfaces";
 
 
 const create = async ( req: Request, res: Response ): Promise<Response> => {
@@ -17,8 +17,8 @@ const read = async ( req: Request, res: Response ): Promise<Response> => {
 };
 
 const readRealEstates = async ( req: Request, res: Response ): Promise<Response> => {
-    const categoryId: number = Number(req.params.id);
-    const realEstateList: RealEstateList = await categoryServices.readRealEstates(categoryId);
+    const category: Category = res.locals.category;
+    const realEstateList: CategoryRealEstates = await categoryServices.readRealEstates(category);
 
     return res.status(200).json(realEstateList);
 };
