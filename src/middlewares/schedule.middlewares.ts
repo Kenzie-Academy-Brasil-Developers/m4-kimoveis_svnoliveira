@@ -8,8 +8,8 @@ const validate = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  
-  const date: string = req.body.date.replace(/\//g,"-");
+
+  const date: string = req.body.date.replace(/\//g, "-");
   const hour: string = req.body.hour;
   const tentativeSchedule: Date = new Date(`${date}T${hour}:00`);
 
@@ -32,7 +32,7 @@ const validate = async (
       user: {
         id: res.locals.tokenData.id
       },
-      date: date.replace(/\-/g,"/"),
+      date: date.replace(/\-/g, "/"),
       hour
     }
   });
@@ -46,7 +46,7 @@ const validate = async (
       realEstate: {
         id: req.body.realEstateId
       },
-      date: date.replace(/\-/g,"/"),
+      date: date.replace(/\-/g, "/"),
       hour
     }
   });
